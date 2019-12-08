@@ -1,112 +1,4 @@
-//Packages
-const inquirer = require("inquirer");
-const fs = require("fs");
-const axios = require("axios");
-const util = require("util");
-const puppeteer = require("puppeteer");
-
-let writeFileAsync = util.promisify(fs.writeFile);
-
-//User color preference
-const colors = {
-    green: {
-      wrapperBackground: "#E6E1C3",
-      headerBackground: "#C1C72C",
-      headerColor: "black",
-      photoBorderColor: "#black"
-    },
-    blue: {
-      wrapperBackground: "#5F64D3",
-      headerBackground: "#26175A",
-      headerColor: "white",
-      photoBorderColor: "#73448C"
-    },
-    pink: {
-      wrapperBackground: "#879CDF",
-      headerBackground: "#FF8374",
-      headerColor: "white",
-      photoBorderColor: "#FEE24C"
-    },
-    red: {
-      wrapperBackground: "#DE9967",
-      headerBackground: "#870603",
-      headerColor: "white",
-      photoBorderColor: "white"
-    }
-  };
-
-//CLI questions  
-inquirer
-  .prompt([
-    {
-      type: "input",
-      message: "What is your Github user name?",
-      name: "username"
-    },
-    {
-      type: "checkbox",
-      message: "Which of these is your favorite color?",
-      name: "color",
-      choices: ["blue", "red", "pink", "green"]
-    }
-  ])
-
-  .then(function({username, color}) {
-    //Calls GitHub API of a user
-    const queryUrl = `https://api.github.com/users/${username}`;
-    return axios.get(queryUrl).then(function(res) {
-      // console.log(
-      //   "--------------------------------------------------------------"
-      // );
-      // console.log("GitHub API Call for", `${answers.username}`, res.data);
-      // console.log(
-      //   "--------------------------------------------------------------"
-      // );
-      //Calls GitHub API for the users stars
-      const starDataUrl = `https://api.github.com/users/${username}/starred`;
-      axios.get(starDataUrl).then(function(stars) {
-        // console.log(
-        //   "--------------------------------------------------------------"
-        // );
-        // console.log("GitHub API Call for", `${answers.username}`, stars.data);
-        // console.log(
-        //   "--------------------------------------------------------------"
-        // );
-        if (res.data.bio === null) {
-          res.data.bio = `<h3 class = "userBio">${username}, "does not yet have a Bio on GitHub."</h3>`;
-        }
-        if (res.data.blog === "") {
-          res.data.blog = `<h3 class = "userBlog">${username}, "does not yet have a Blog on GitHub."</h3>`;
-        }
-        if (res.data.location === null) {
-          res.data.location = `<h3 class = "userLocation">${username}, "has not yet added their location on GitHub."</h3>`;
-        }
-        //Object for the data being called in
-        data = {
-          img: res.data.avatar_url,
-          username: res.data.login,
-          location: res.data.location,
-          profile: res.data.url,
-          blog: res.data.blog,
-          bio: res.data.bio,
-          repos: res.data.public_repos,
-          followers: res.data.followers,
-          following: res.data.following,
-          stars: stars.data.length,
-          color: color
-        };
-
-
-        generateHTML(data);
-        writeToHTML(generateHTML(data));
-        console.log("Writing to File: Successful!");
-
-        });
-      });
-    });
-
-    function generateHTML(data) {
-      return `<!DOCTYPE html>
+<!DOCTYPE html>
     <html lang="en">
        <head>
           <meta charset="UTF-8" />
@@ -121,7 +13,7 @@ inquirer
               <div class="col">
                 <div class="card">
                   <h2>Github stars</h2>
-                  <h3>${data.stars}</h3>
+                  <h3>1</h3>
                 </div>
               </div>
             </div>
@@ -144,7 +36,7 @@ inquirer
              height: 100%;
              }
              .wrapper {
-             background-color:${colors[data.color].wrapperBackground};
+             background-color:#E6E1C3;
              padding-top: 100px;
              }
              body {
@@ -186,8 +78,8 @@ inquirer
              display: flex;
              justify-content: center;
              flex-wrap: wrap;
-             background-color:${colors[data.color].headerBackground} ;
-             color:${colors[data.color].headerColor};
+             background-color:#C1C72C ;
+             color:black;
              padding: 10px;
              width: 95%;
              border-radius: 6px;
@@ -198,7 +90,7 @@ inquirer
              border-radius: 50%;
              object-fit: cover;
              margin-top: -75px;
-             border: 6px solid ${colors[data.color].photoBorderColor};
+             border: 6px solid #black;
              box-shadow: rgba(0, 0, 0, 0.3) 4px 1px 20px 4px;
              }
              .photo-header h1, .photo-header h2 {
@@ -241,8 +133,8 @@ inquirer
              .card {
                padding: 20px;
                border-radius: 6px;
-               background-color:${colors[data.color].headerBackground};
-               color:${colors[data.color].headerColor};
+               background-color:#C1C72C;
+               color:black;
                margin: 20px;
              }
              
@@ -264,14 +156,4 @@ inquirer
              }
           </style>
             }
-    </html>`
-};
-    const writeToHTML = function(generateHTML){
-    writeFileAsync("index.html", generateHTML, err => {
-      if (err) {
-        console.log("Writing to File: Not Successful");
-      } else {
-        console.log("Writing to File: Successful!");
-      }
-    });
-    }
+    </html>
