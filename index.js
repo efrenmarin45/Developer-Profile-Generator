@@ -116,7 +116,7 @@ inquirer
           <link href="https://fonts.googleapis.com/css?family=BioRhyme|Cabin&display=swap" rel="stylesheet">
           <title>Document</title>
           <body>
-          <div class="wrapper>
+          <div class="wrapper">
             <div class="row">
               <div class="col">
                 <div class="card">
