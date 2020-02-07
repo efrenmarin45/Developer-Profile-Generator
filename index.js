@@ -55,23 +55,10 @@ inquirer
     //Calls GitHub API of a user
     const queryUrl = `https://api.github.com/users/${username}`;
     return axios.get(queryUrl).then(function(res) {
-      // console.log(
-      //   "--------------------------------------------------------------"
-      // );
-      // console.log("GitHub API Call for", `${answers.username}`, res.data);
-      // console.log(
-      //   "--------------------------------------------------------------"
-      // );
+
       //Calls GitHub API for the users stars
       const starDataUrl = `https://api.github.com/users/${username}/starred`;
       axios.get(starDataUrl).then(function(stars) {
-        // console.log(
-        //   "--------------------------------------------------------------"
-        // );
-        // console.log("GitHub API Call for", `${answers.username}`, stars.data);
-        // console.log(
-        //   "--------------------------------------------------------------"
-        // );
         if (res.data.bio === null) {
           res.data.bio = `<h3 class = "userBio">${username}, "does not yet have a Bio on GitHub."</h3>`;
         }
@@ -114,18 +101,34 @@ inquirer
           <meta http-equiv="X-UA-Compatible" content="ie=edge" />
           <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>
           <link href="https://fonts.googleapis.com/css?family=BioRhyme|Cabin&display=swap" rel="stylesheet">
-          <title>Document</title>
+          <title>Github Developer Profile</title>
           <body>
           <div class="wrapper">
-            <div class="row">
+            <div class="photo-header">
+              <img class="img" src="${data.img}">
+              <h1>Hello!</h1>
+              <h2>My name is ${data.username}</h2>
+              <h2>I live in ${data.location}</h2>
+\            <div class="row">
               <div class="col">
                 <div class="card">
                   <h2>Github stars</h2>
                   <h3>${data.stars}</h3>
                 </div>
+                <div class="card">
+                  <h2>Public Repositories</h2>
+                  <h3>${data.repos}</h3>
+                </div>
+                <div class="card">
+                  <h2>Followers</h2>
+                  <h3>${data.followers}</h3>
+                </div>
+                <div class="card">
+                  <h2>Following</h2>
+                  <h3>${data.following}</h3>
+                </div>
               </div>
             </div>
-          </div>  
           </body>
           <style>
               @page {
@@ -175,6 +178,7 @@ inquirer
              }
              h5 {
              font-size: 1.3em;
+             text-align: center;
              }
              h6 {
              font-size: 1.2em;
@@ -263,7 +267,6 @@ inquirer
               } 
              }
           </style>
-            }
     </html>`
 };
     const writeToHTML = function(generateHTML){
@@ -275,3 +278,24 @@ inquirer
       }
     });
     }
+    async function makePdf(username){
+      console.log(username);
+        try {
+       
+      const browser = await puppeteer.launch();
+      const page = await browser.newPage();
+    
+      await page.goto('file:///Users/Efren_Marin/Desktop/BootCamp/Homework/Developer-Profile-Generator/index.html');
+        await page.emulateMedia("screen");
+        await page.pdf({ 
+          path: `${data.username}.pdf`,
+          format: "A4",
+          printBackground: true,
+          landscape: false
+        });
+      console.log("Succesfully generated PDF");
+      await browser.close();
+      } catch (error) {
+      console.log("Error generating PDF");
+      }
+      }
