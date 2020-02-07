@@ -1,13 +1,31 @@
 # Github Developer Profile Generator
 
+## How to use
+1) Download files
+2) Install NPM packages
+3) Run node index.js in CLI
+4) Select index.html and run in browser
+
+
 ## Purpose
-This project was meant to work more with the Github API to be able to dynamically produce an HTML page with the users Github stats. From there, the program would then be able to convert to a PDF file. This would be done through Javascript, CSS, and Node.JS. 
+This project is meant to work with the Github API to be able to dynamically produce an HTML page with the users Github stats. Being able to simply generate a page using a Github username helps to create an easy snapshot of the users activity.
+
+
+## WIP Demo
+![Dev CLI Demo](assets/dev_CLI.gif)
+
+![Final Result](assets/Example-Profile.png)
+
 
 ## Project Status
-Still working on being able to use module.exports and finding a way to properly display the information dynamically as a new file. I will be having a small hiatus on this while I research some more and try to pin down where the disconnect is. This project is considered to be a Work in Progress. Since this is still an incomplete project in my eyes, there are no screenshots or links to a live view except for a snippet of the terminal shown below.
+The project is finished for the most part. While I would like to revisit this in the future to add more colors and borders, I am focusing on other repos at the moment. 
 
-[![asciicast](https://asciinema.org/a/gzzgTadQOR1dFxPT9hXHEVqTb.svg)](https://asciinema.org/a/gzzgTadQOR1dFxPT9hXHEVqTb)
+
+## Reflection
+This project was a challenge and I loved every minute of it. Being able to put together my code and then spending hours trying to find out the best way to optimize it and make it work was satisfying. If I could change anything if I were to do it again, I would definitely work more with Github's API and structure my files and code better from the beginning. 
+
+
+[Demo of Generated Page](https://efrenmarin45.github.io/Developer-Profile-Generator/)
+
 
 No licenses. Creative purposes only. @Efrenmarin45 on GitHub.
-
-https://github.com/efrenmarin45/unit-9-developer-profile-generator
