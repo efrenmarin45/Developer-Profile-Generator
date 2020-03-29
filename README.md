@@ -11,7 +11,7 @@
 This project is meant to work with the Github API to be able to dynamically produce an HTML page with the users Github stats. Being able to simply generate a page using a Github username helps to create an easy snapshot of the users activity.
 
 
-## WIP Demo
+## Demo
 ![Dev CLI Demo](assets/dev_CLI.gif)
 
 ![Final Result](assets/Example-Profile.png)
