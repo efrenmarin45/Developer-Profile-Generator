@@ -21,6 +21,6 @@
     "fs": "0.0.1-security",
     "inquirer": "^7.0.0",
     "puppeteer": "^2.0.0",
-    "util": "^0.12.1"
+    "util": "^0.12.4"
   }
 }
